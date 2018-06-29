@@ -1,0 +1,31 @@
+public class RetrofitClient {
+
+    public static Retrofit retrofit = null;
+    private static OkHttpClient client;
+
+    public static Retrofit getClient(String baseurl) {
+        if (retrofit == null) {
+            LoggingInterceptor httpLoggingInterceptor = new LoggingInterceptor.Builder()
+                    .loggable(BuildConfig.DEBUG)
+                    .setLevel(Level.BODY)
+                    .log(Platform.INFO)
+                    .request("Request")
+                    .response("Response")
+                    .addHeader("version", BuildConfig.VERSION_NAME)
+                    .build();
+
+            client = new OkHttpClient
+                    .Builder()
+                    .addInterceptor(httpLoggingInterceptor)
+                    .connectTimeout(60L, TimeUnit.SECONDS)
+                    .readTimeout(60L, TimeUnit.SECONDS)
+                    .writeTimeout(60L, TimeUnit.SECONDS)
+                    .build();
+            retrofit = new Retrofit.Builder().baseUrl(baseurl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofit;
+    }
+}
