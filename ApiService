@@ -1,0 +1,14 @@
+public interface ApiService {
+
+    @POST("API NAME")
+    Call<MODELCLASS> loginCheck(@Query("email") String email,@Query("password") String password);
+
+    @GET("API name")
+    
+    @Multipart
+     
+    @POST("API NAME")
+    @Streaming
+    Call<ResponseBody> downloadFile();
+    
+}
