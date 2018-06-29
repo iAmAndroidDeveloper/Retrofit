@@ -1,0 +1,11 @@
+public class ApiUtilities {
+
+   
+    //Live
+    public static final String baseurl="base url";
+
+    public static ApiService getApiservice()
+    {
+        return RetrofitClient.getClient(baseurl).create(ApiService.class);
+    }
+}
